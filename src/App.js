@@ -3,19 +3,21 @@ import styled from "styled-components";
 import Mattilsyn from "./Mattilsyn";
 import Karakterskala from "./Karakterskala";
 
-import "./App.css";
-
 function App() {
   return (
-    <div className="App">
+    <MattilsynApp>
       <Tittel>BraMat – Appen du treng når du skal ut å ete</Tittel>
       <Karakterskala/>
       <Mattilsyn />
-    </div>
+    </MattilsynApp>
   );
 }
 
 export default App;
+
+const MattilsynApp = styled.div`
+  text-align: center;
+`;
 
 const Tittel = styled.p`
   font-size: 25px;
