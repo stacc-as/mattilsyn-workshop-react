@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import styled from "styled-components";
+import Mattilsyn from "./Mattilsyn";
+import Karakterskala from "./Karakterskala";
+
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Tittel>BraMat – Appen du treng når du skal ut å ete</Tittel>
+      <Karakterskala/>
+      <Mattilsyn />
     </div>
   );
 }
 
 export default App;
+
+const Tittel = styled.p`
+  font-size: 25px;
+  font-weight: 500;
+  margin: 40px 0 0;
+`;
