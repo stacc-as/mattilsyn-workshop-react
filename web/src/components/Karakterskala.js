@@ -9,7 +9,7 @@ export default class Mattilsyn extends React.Component {
     return(
       <Karakterskala>
       <p>Karakterskala</p>
-      <div classNameName="list">
+      <div className="list">
         <ul>
           <li>
             <img

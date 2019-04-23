@@ -12,7 +12,7 @@ function App() {
       <Tittel>BraMat – Appen du treng når du skal ut å ete</Tittel>
       <Karakterskala/>
       <Mattilsyn />
-      <img class="logoStacc" src={StaccLogo} alt="Stacc"></img>
+      <img className="logoStacc" src={StaccLogo} alt="Stacc"></img>
     </MattilsynApp>
   );
 }
