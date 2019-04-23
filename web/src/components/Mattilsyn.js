@@ -1,5 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { getReviewsByPostalPlace } from "../Requests";
+import stortSmil from "../assets/stort_smil.png";
+import strekFjes from "../assets/strek_fjes.png";
+import surt_Fjes from "../assets/surt_fjes.png";
 
 export default class Mattilsyn extends React.Component {
   constructor(props) {
@@ -18,10 +22,58 @@ export default class Mattilsyn extends React.Component {
   }
 
   getPlaceByPostalCode(postalCode) {
-    this.setState({ activeItem: postalCode });
+    getReviewsByPostalPlace(postalCode, result => {
+      this.setState({ activeItem: postalCode, hasData: true, places: result });
+    });
+  }
+
+  getSmily(smilefjes) {
+    switch (smilefjes) {
+      case "0":
+        return (
+          <div>
+            <img className="gradeFace" src={stortSmil} alt="stort smil" width="30" />
+          </div>
+        );
+      case "1":
+        return (
+          <div>
+            <img className="gradeFace" src={stortSmil} alt="stort smil" width="30" />
+          </div>
+        );
+      case "2":
+        return (
+          <div>
+            <img className="gradeFace" src={strekFjes} alt="stort smil" width="30" />
+          </div>
+        );
+      case "3":
+        return (
+          <div>
+            <img className="gradeFace" src={surt_Fjes} alt="stort smil" width="30" />
+          </div>
+        );
+      default:
+        break;
+    }
   }
 
   render() {
+    let reviews = [];
+    if (this.state.hasData) {
+      reviews = this.state.places.map(place => {
+        return (
+          <tr key={`${place.navn}${place.datoForTilsyn}`}>
+            <td key="Navn">{place.navn}</td>
+            <td key="Dato">{place.datoForTilsyn}</td>
+            <td key="TotalKarakter">{this.getSmily(place.smilefjes)}</td>
+            <td key="Karakter1">{place.karakterLedelseRuting}</td>
+            <td key="Karakter2">{place.karakterLokalerUtstyr}</td>
+            <td key="Karakter3">{place.karakterMattilbredningHandtering}</td>
+          </tr>
+        );
+      });
+    }
     console.log("STATE: ", this.state);
     return (
       <Wrapper>
@@ -31,9 +83,35 @@ export default class Mattilsyn extends React.Component {
         <Knapp className={this.isActive("Oslo") ? "active" : ""} onClick={() => this.getPlaceByPostalCode("Oslo")}>
           Oslo
         </Knapp>
-        <div className={this.hasData ? "show" : "hide"}>
-            <input id="myInput"/>
-        </div>
+        <Reviews className={!this.state.hasData ? "hide" : ""}>
+          <input id="myInput" placeholder="Søk etter resturant..." />
+          <Knapp>Tøm liste</Knapp>
+          <table id="myTable">
+            <tbody>
+              <tr className="header">
+                <th style={{ width: "40%" }} key="Matplass">
+                  Matplass
+                </th>
+                <th style={{ width: "20%" }} key="Dato">
+                  Dato
+                </th>
+                <th style={{ width: "10%" }} key="Heilhetskarakter">
+                  Heilhetskarakter
+                </th>
+                <th style={{ width: "10%" }} key="Karakter1">
+                  Karakter 1
+                </th>
+                <th style={{ width: "10%" }} key="Karakter2">
+                  Karakter 2
+                </th>
+                <th style={{ width: "10%" }} key="Karakter3">
+                  Karakter 3
+                </th>
+              </tr>
+              {reviews}
+            </tbody>
+          </table>
+        </Reviews>
       </Wrapper>
     );
   }
@@ -52,18 +130,8 @@ const Wrapper = styled.div`
     }
   }
 
-  .show{
-
-  } 
   .hide {
-      display: none;
-  }
-  #myInput {
-    width: 40%; 
-    font-size: 16px; 
-    padding: 12px 20px 12px 40px;
-    border: 1px solid #ddd;
-    margin-bottom: 12px;
+    display: none;
   }
 `;
 
@@ -89,5 +157,49 @@ const Knapp = styled.button`
     border: 3px solid #467eff;
     border-radius: 6px;
     color: white;
+  }
+`;
+
+const Reviews = styled.div`
+  padding: 20px;
+  width: 70%;
+  height: auto;
+  margin: auto;
+
+  #myInput {
+    width: 40%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+  }
+
+  #myTable {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+    font-size: 18px;
+  }
+
+  #myTable th,
+  #myTable td {
+    text-align: left;
+    padding: 12px;
+  }
+
+  #myTable tr {
+    border-bottom: 1px solid #ddd;
+  }
+
+  #myTable tr.header,
+  #myTable tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  .gradeFace {
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
   }
 `;
