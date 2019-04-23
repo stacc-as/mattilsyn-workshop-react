@@ -1,19 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import stortSmil from "././assets/stort_smil.png";
-import strekFjes from "././assets/strek_fjes.png";
-import surt_Fjes from "././assets/surt_fjes.png";
+import stortSmil from "../assets/stort_smil.png";
+import strekFjes from "../assets/strek_fjes.png";
+import surt_Fjes from "../assets/surt_fjes.png";
 
 export default class Mattilsyn extends React.Component {
   render() {
     return(
       <Karakterskala>
       <p>Karakterskala</p>
-      <div className="list">
+      <div classNameName="list">
         <ul>
           <li>
             <img
-              class="gradeFace"
+              className="gradeFace"
               src={stortSmil}
               alt="stort smil"
               width="30"
@@ -22,7 +22,7 @@ export default class Mattilsyn extends React.Component {
           </li>
           <li>
             <img
-              class="gradeFace"
+              className="gradeFace"
               src={stortSmil}
               alt="stort smil"
               width="30"
@@ -31,7 +31,7 @@ export default class Mattilsyn extends React.Component {
           </li>
           <li>
             <img
-              class="gradeFace"
+              className="gradeFace"
               src={strekFjes}
               alt="strekfjes"
               width="30"
@@ -40,7 +40,7 @@ export default class Mattilsyn extends React.Component {
           </li>
           <li>
             <img
-              class="gradeFace"
+              className="gradeFace"
               src={surt_Fjes}
               alt="surt fjes"
               width="30"
@@ -60,12 +60,15 @@ text-align: left;
 margin: auto;
 
 p {
+  font-size: 24px;
   text-align: center;
   font-weight: 400;
+  margin: 0;
 }
 ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 li {
   display: inline-block;
