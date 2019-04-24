@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { getReviewsByPostalPlace } from "../Requests";
-import stortSmil from "../assets/stort_smil.png";
-import strekFjes from "../assets/strek_fjes.png";
-import surt_Fjes from "../assets/surt_fjes.png";
+import StortSmil from "./StortSmilefjes";
+import StrekSmil from "./StrekSmilefjes";
+import SurtSmil from "./SurtSmilefjes";
 
 export default class Mattilsyn extends React.Component {
   constructor(props) {
@@ -32,25 +32,25 @@ export default class Mattilsyn extends React.Component {
       case "0":
         return (
           <div>
-            <img className="gradeFace" src={stortSmil} alt="stort smil" width="30" />
+            <StortSmil color="lawngreen" />
           </div>
         );
       case "1":
         return (
           <div>
-            <img className="gradeFace" src={stortSmil} alt="stort smil" width="30" />
+            <StortSmil />
           </div>
         );
       case "2":
         return (
           <div>
-            <img className="gradeFace" src={strekFjes} alt="stort smil" width="30" />
+            <StrekSmil />
           </div>
         );
       case "3":
         return (
           <div>
-            <img className="gradeFace" src={surt_Fjes} alt="stort smil" width="30" />
+            <SurtSmil />
           </div>
         );
       default:
