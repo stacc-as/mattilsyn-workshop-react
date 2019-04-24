@@ -74,7 +74,6 @@ export default class Mattilsyn extends React.Component {
         );
       });
     }
-    console.log("STATE: ", this.state);
     return (
       <Wrapper>
         <Knapp className={this.isActive("Bergen") ? "active" : ""} onClick={() => this.getPlaceByPostalCode("Bergen")}>
@@ -85,7 +84,7 @@ export default class Mattilsyn extends React.Component {
         </Knapp>
         <Reviews className={!this.state.hasData ? "hide" : ""}>
           <input id="myInput" placeholder="Søk etter resturant..." />
-          <Knapp>Tøm liste</Knapp>
+          <Knapp onClick={() => this.setState({ hasData: false, places: [], activeItem: "" })}>Tøm liste</Knapp>
           <table id="myTable">
             <tbody>
               <tr className="header">
