@@ -11,10 +11,12 @@ export default class Mattilsyn extends React.Component {
     this.state = {
       places: [],
       hasData: false,
-      activeItem: ""
+      activeItem: "",
+      filteredPlaces: []
     };
     this.isActive = this.isActive.bind(this);
     this.getPlaceByPostalCode = this.getPlaceByPostalCode.bind(this);
+    this.filterTable = this.filterTable.bind(this);
   }
 
   isActive(menuItem) {
@@ -25,6 +27,15 @@ export default class Mattilsyn extends React.Component {
     getReviewsByPostalPlace(postalCode, result => {
       this.setState({ activeItem: postalCode, hasData: true, places: result });
     });
+  }
+
+  filterTable(event) {
+    const filterText = event.target.value;
+    let { places } = this.state;
+    const filteredTable = places.filter(place => {
+      return place.navn.toUpperCase().includes(filterText.toUpperCase());
+    });
+    this.setState({ filteredPlaces: filteredTable });
   }
 
   getSmily(smilefjes) {
@@ -61,7 +72,10 @@ export default class Mattilsyn extends React.Component {
   render() {
     let reviews = [];
     if (this.state.hasData) {
-      reviews = this.state.places.map(place => {
+      const { filteredPlaces, places } = this.state;
+      let list = places;
+      if (filteredPlaces.length > 0) list = filteredPlaces;
+      reviews = list.map(place => {
         return (
           <tr key={`${place.navn}${place.datoForTilsyn}`}>
             <td key="Navn">{place.navn}</td>
@@ -83,7 +97,7 @@ export default class Mattilsyn extends React.Component {
           Oslo
         </Knapp>
         <Reviews className={!this.state.hasData ? "hide" : ""}>
-          <input id="myInput" placeholder="Søk etter resturant..." />
+          <input id="myInput" placeholder="Søk etter resturant..." onKeyUp={event => this.filterTable(event)} />
           <Knapp onClick={() => this.setState({ hasData: false, places: [], activeItem: "" })}>Tøm liste</Knapp>
           <table id="myTable">
             <tbody>
